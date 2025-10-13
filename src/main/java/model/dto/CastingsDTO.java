@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Castings implements Serializable {
+public class CastingsDTO implements Serializable {
     private int castingID;
     private String location;
     private String description;
@@ -15,10 +15,10 @@ public class Castings implements Serializable {
     private int cdID;
     private int productionID;
 
-    public Castings() {
+    public CastingsDTO() {
     }
 
-    public Castings(int castingID, String location, String description, String category, LocalDateTime date, LocalDateTime deadLine, String title, int cdID, int productionID) {
+    public CastingsDTO(int castingID, String location, String description, String category, LocalDateTime date, LocalDateTime deadLine, String title, int cdID, int productionID) {
         this.castingID = castingID;
         this.location = location;
         this.description = description;
@@ -120,7 +120,7 @@ public class Castings implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Castings castings = (Castings) o;
+        CastingsDTO castings = (CastingsDTO) o;
         return castingID == castings.castingID && cdID == castings.cdID && productionID == castings.productionID && Objects.equals(location, castings.location) && Objects.equals(description, castings.description) && Objects.equals(category, castings.category) && Objects.equals(date, castings.date) && Objects.equals(deadLine, castings.deadLine) && Objects.equals(title, castings.title);
     }
 }
