@@ -10,10 +10,6 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Data Access Object (DAO) for managing User entities in the database.
- * This class provides CRUD operations and additional user-related functionality
- * including password hashing and verification using Argon2 algorithm.
- *
  *
  * @author Gennaro Carmine Tozza
  */
@@ -73,7 +69,7 @@ public class UsersDAO implements GenericDAO<UsersDTO, Integer> {
 
         String sql;
         if (usersDTO.getUserID() == 0) { // New user (INSERT)
-            sql = "INSERT INTO User (FirstName, LastName, PasswordHash, Role, Email ) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO Users (FirstName, LastName, PasswordHash, Role, Email ) VALUES (?, ?, ?, ?, ?)";
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // Get generated ID
                 ps.setString(1, usersDTO.getFirstName());
@@ -97,7 +93,7 @@ public class UsersDAO implements GenericDAO<UsersDTO, Integer> {
                 }
             }
         } else { // Existing user (UPDATE)
-            sql = "UPDATE User SET FirstName = ?, LastName = ?, PasswordHash = ?, Role = ?, Email = ? WHERE UserID = ?";
+            sql = "UPDATE Users SET FirstName = ?, LastName = ?, PasswordHash = ?, Role = ?, Email = ? WHERE UserID = ?";
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, usersDTO.getFirstName());
@@ -149,7 +145,7 @@ public class UsersDAO implements GenericDAO<UsersDTO, Integer> {
             throw new IllegalArgumentException("UserID must be a positive integer.");
         }
 
-        String sql = "SELECT UserID, FirstName, LastName, PasswordHash, Role, Email FROM User WHERE UserID = ?";
+        String sql = "SELECT UserID, FirstName, LastName, PasswordHash, Role, Email FROM Users WHERE UserID = ?";
         UsersDTO usersDTO = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -332,7 +328,7 @@ public class UsersDAO implements GenericDAO<UsersDTO, Integer> {
      * @throws SQLException if a database access error occurs
      */
     public int countAll() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM `User`";
+        String sql = "SELECT COUNT(*) FROM `Users`";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql);
