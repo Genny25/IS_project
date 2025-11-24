@@ -1,77 +1,77 @@
+DROP DATABASE IF EXISTS audire;
+CREATE DATABASE audire;
+USE audire;
 
-
-CREATE TABLE Users (
+CREATE TABLE User (
     UserID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(100) NOT NULL,
-    LastName VARCHAR(100) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
-    Role ENUM('Admin', 'CastingDirector', 'ProductionManager', 'Performer') NOT NULL,
-    Email VARCHAR(255) UNIQUE NOT NULL
+    PhoneNumber CHAR(10) NOT NULL,
+    Role ENUM('Performer', 'CastingDirector', 'ProductionManager') NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    RegistrationDate DATE NOT NULL
 );
 
-CREATE INDEX idx_users_email ON Users(Email);
-CREATE INDEX idx_users_role ON Users(Role);
-CREATE INDEX idx_castings_deadline ON Castings(DeadLine);
-
-CREATE TABLE Performers (
+CREATE TABLE Performer (
     PerformerID INT PRIMARY KEY AUTO_INCREMENT,
-    PhoneNumber CHAR(10),
-    Gender ENUM('M', 'F', 'Other', 'PreferNotToSay'),
-    Category VARCHAR(100),
+    Gender ENUM('M', 'F', 'Altro'),
+    Category ENUM('Attore/Attrice', 'Musicista', 'Cantante', 'Ballerino', 'Doppiatore/trice', 'Qualsiasi') NOT NULL,
     Description TEXT,
-    CV_Data MEDIUMBLOB,  -- fino a 16MB
-    CV_MimeType VARCHAR(50) DEFAULT 'application/pdf',
-    FOREIGN KEY (PerformerID) REFERENCES Users(UserID) ON DELETE CASCADE
+    CV_Data MEDIUMBLOB,
+    CV_MimeType VARCHAR(255) DEFAULT 'application/pdf',
+    ProfilePhoto VARCHAR(255),
+    FOREIGN KEY (PerformerID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
-CREATE TABLE Production_Managers (
+CREATE TABLE Production_Manager (
     PmID INT PRIMARY KEY,
-    FOREIGN KEY (PmID) REFERENCES Users(UserID) ON DELETE CASCADE
+    FOREIGN KEY (PmID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
-CREATE TABLE Casting_Directors (
+CREATE TABLE Casting_Director (
     CdID INT PRIMARY KEY,
-    FOREIGN KEY (CdID) REFERENCES Users(UserID) ON DELETE CASCADE
+    FOREIGN KEY (CdID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
-CREATE TABLE Productions (
+CREATE TABLE Production (
     ProductionID INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(255) NOT NULL,
-    Type VARCHAR(100),
+    Type ENUM('Serie TV', 'Film', 'Teatro', 'Musical', 'Pubblicità', 'Documentario', 'Cortometraggio', 'Web Series', 'Altro') NOT NULL,
+    CreationDate DATE NOT NULL,
     PmID INT NOT NULL,
-    FOREIGN KEY (PmID) REFERENCES Production_Managers(PmID) ON DELETE RESTRICT
+    FOREIGN KEY (PmID) REFERENCES Production_Manager(PmID) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_productions_pmid ON Productions(PmID);
+CREATE TABLE Team (
+    ProductionID INT,
+    CdID INT,
+    PRIMARY KEY(ProductionID, CdID),
+    FOREIGN KEY (ProductionID) REFERENCES Production(ProductionID) ON DELETE CASCADE,
+    FOREIGN KEY (CdID) REFERENCES Casting_Director(CdID) ON DELETE CASCADE
+);
 
-CREATE TABLE Castings (
+CREATE TABLE Casting (
     CastingID INT PRIMARY KEY AUTO_INCREMENT,
-    Location VARCHAR(255),
-    Category VARCHAR(100),
-    Description TEXT,
-    Date DATE,
-    DeadLine DATE,
+    Location VARCHAR(255) NOT NULL,
+    Category ENUM('Attore/Attrice', 'Musicista', 'Cantante', 'Ballerino', 'Doppiatore/trice', 'Qualsiasi') NOT NULL,
+    Description TEXT NOT NULL,
+    PublishDate DATE NOT NULL,
+    DeadLine DATE NOT NULL,
     Title VARCHAR(255) NOT NULL,
     CdID INT NOT NULL,
     ProductionID INT NOT NULL,
-    FOREIGN KEY (CdID) REFERENCES Casting_Directors(CdID) ON DELETE RESTRICT,
-    FOREIGN KEY (ProductionID) REFERENCES Productions(ProductionID) On DELETE RESTRICT
+    FOREIGN KEY (CdID) REFERENCES Casting_Director(CdID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductionID) REFERENCES Production(ProductionID) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_castings_date ON Castings(Date);
-CREATE INDEX idx_castings_cdid ON Castings(CdID);
-
-CREATE TABLE Apply (
-    PerformerID INT,
-    CastingID INT,
+CREATE TABLE Application (
+    ApplicationID INT PRIMARY KEY AUTO_INCREMENT,
+    SendingDate DATE NOT NULL,
+    Status ENUM('In attesa', 'Shortlist', 'Selezionata', 'Rifiutata') DEFAULT 'In attesa',
     Feedback TEXT,
-    Status ENUM('In Attesa', 'ShortList', 'Selezionata', 'Rifiutata') DEFAULT 'In Attesa',
-    ApplicationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (PerformerID, CastingID),
-    FOREIGN KEY (PerformerID) REFERENCES Performers(PerformerID) ON DELETE CASCADE,
-    FOREIGN KEY (CastingID) REFERENCES Castings(CastingID) ON DELETE CASCADE
+    PerformerID INT NOT NULL,
+    CastingID INT NOT NULL,
+    FOREIGN KEY (PerformerID) REFERENCES Performer(PerformerID) ON DELETE CASCADE,
+    FOREIGN KEY (CastingID) REFERENCES Casting(CastingID) ON DELETE CASCADE
 );
-
-CREATE INDEX idx_apply_status ON Apply(Status);
-
-
