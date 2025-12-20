@@ -80,14 +80,14 @@ public class ProductionDTO implements Serializable {
     }
 
     public enum Type {
-        SerieTV,
+        Serie_TV,
         Film,
         Teatro,
         Musical,
         Pubblicità,
         Documentario,
         Cortometraggio,
-        WebSeries,
+        Web_Series,
         Altro
     }
 }

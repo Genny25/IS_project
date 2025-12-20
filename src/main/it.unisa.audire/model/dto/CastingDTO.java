@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import model.dto.PerformerDTO.Category;
-
 public class CastingDTO implements Serializable {
 
     private int castingID;
@@ -124,5 +122,14 @@ public class CastingDTO implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         CastingDTO that = (CastingDTO) o;
         return castingID == that.castingID && cdID == that.cdID && productionID == that.productionID && Objects.equals(location, that.location) && category == that.category && Objects.equals(description, that.description) && Objects.equals(publishDate, that.publishDate) && Objects.equals(deadline, that.deadline) && Objects.equals(title, that.title);
+    }
+
+    public enum Category {
+        Attore_Attrice,
+        Musicista,
+        Cantante,
+        Ballerino,
+        Doppiatore_trice,
+        Qualsiasi,
     }
 }

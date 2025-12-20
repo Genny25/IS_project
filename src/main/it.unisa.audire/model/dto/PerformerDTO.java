@@ -123,7 +123,7 @@ public class PerformerDTO implements Serializable {
         Musicista,
         Cantante,
         Ballerino,
-        Doppiatore_Trice,
+        Doppiatore_trice,
         Qualsiasi,
     }
 
