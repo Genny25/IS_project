@@ -17,7 +17,7 @@ import java.util.*;
  * Create, Read, Update, and Delete (CRUD) operations, as well as password hashing.
  * </p>
  */
-public class UserDAO {
+public class UserDAO implements GenericDAO<UserDTO, Integer> {
 
     // Configuration for Argon2 password hashing
     private static final Argon2Function ARGON_2_ID = Argon2Function.getInstance(19, 2, 1, 32, Argon2.ID);
@@ -133,7 +133,7 @@ public class UserDAO {
      * Retrieves a user by their unique database ID.
      *
      * @param userID the unique identifier of the user.
-     * @return the {@link UserDTO} object if found, or {@code null} if not found.
+     * @return the UserDTO object if found, or {@code null} if not found.
      * @throws SQLException if a database access error occurs.
      * @throws IllegalArgumentException if the userID is null or non-positive.
      */
@@ -164,7 +164,7 @@ public class UserDAO {
      * <p>This method is typically used during the login process.</p>
      *
      * @param email the email address to search for.
-     * @return the {@link UserDTO} object if found, or {@code null} if not found.
+     * @return the UserDTO object if found, or {@code null} if not found.
      * @throws SQLException if a database access error occurs.
      */
     public UserDTO getByEmail(String email) throws SQLException {
@@ -193,7 +193,7 @@ public class UserDAO {
      * Retrieves all users from the database, sorted by the specified column.
      *
      * @param order the column name to sort by. If invalid or null, defaults to "UserID".
-     * @return a {@link Collection} of {@link UserDTO} objects.
+     * @return a Collection of UserDTO objects.
      * @throws SQLException if a database access error occurs.
      */
     public Collection<UserDTO> getAll(String order) throws SQLException {

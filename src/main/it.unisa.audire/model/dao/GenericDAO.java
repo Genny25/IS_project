@@ -8,6 +8,6 @@ public interface GenericDAO<T, ID> {
 
     void save(T t) throws SQLException;
     boolean delete(ID id) throws SQLException;
-    T getById(ID id) throws SQLException;
+    T getByID(ID id) throws SQLException;
     Collection<T> getAll(String order) throws SQLException;
 }
