@@ -10,7 +10,7 @@ CREATE TABLE User (
     PhoneNumber CHAR(10) NOT NULL,
     Role ENUM('Performer', 'CastingDirector', 'ProductionManager') NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
-    RegistrationDate DATE NOT NULL
+    RegistrationDate DATETIME NOT NULL
 );
 
 CREATE TABLE Performer (
@@ -26,13 +26,13 @@ CREATE TABLE Performer (
 );
 
 CREATE TABLE Production_Manager (
-    PmID INT PRIMARY KEY,
+    PmID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
 CREATE TABLE Casting_Director (
-    CdID INT PRIMARY KEY,
+    CdID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
@@ -41,7 +41,7 @@ CREATE TABLE Production (
     ProductionID INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(255) NOT NULL,
     Type ENUM('Serie TV', 'Film', 'Teatro', 'Musical', 'Pubblicità', 'Documentario', 'Cortometraggio', 'Web Series', 'Altro') NOT NULL,
-    CreationDate DATE NOT NULL,
+    CreationDate DATETIME NOT NULL,
     PmID INT NOT NULL,
     FOREIGN KEY (PmID) REFERENCES Production_Manager(PmID) ON DELETE CASCADE
 );
@@ -59,8 +59,8 @@ CREATE TABLE Casting (
     Location VARCHAR(255) NOT NULL,
     Category ENUM('Attore/Attrice', 'Musicista', 'Cantante', 'Ballerino', 'Doppiatore/trice', 'Qualsiasi') NOT NULL,
     Description TEXT NOT NULL,
-    PublishDate DATE NOT NULL,
-    DeadLine DATE NOT NULL,
+    PublishDate DATETIME NOT NULL,
+    DeadLine DATETIME NOT NULL,
     Title VARCHAR(255) NOT NULL,
     CdID INT NOT NULL,
     ProductionID INT NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE Casting (
 
 CREATE TABLE Application (
     ApplicationID INT PRIMARY KEY AUTO_INCREMENT,
-    SendingDate DATE NOT NULL,
+    SendingDate DATETIME NOT NULL,
     Status ENUM('In attesa', 'Shortlist', 'Selezionata', 'Rifiutata') DEFAULT 'In attesa',
     Feedback TEXT,
     PerformerID INT NOT NULL,
