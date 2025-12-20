@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class ProductionManagerDTO implements Serializable {
     private int pmID;
-    private String userID;
+    private int userID;
 
     public ProductionManagerDTO() {}
 
-    public ProductionManagerDTO(int pmID, String userID) {
+    public ProductionManagerDTO(int pmID, int userID) {
         this.pmID = pmID;
         this.userID = userID;
     }
@@ -22,11 +22,11 @@ public class ProductionManagerDTO implements Serializable {
         this.pmID = pmID;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -42,6 +42,6 @@ public class ProductionManagerDTO implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductionManagerDTO that = (ProductionManagerDTO) o;
-        return pmID == that.pmID && Objects.equals(userID, that.userID);
+        return pmID == that.pmID && userID == that.userID;
     }
 }

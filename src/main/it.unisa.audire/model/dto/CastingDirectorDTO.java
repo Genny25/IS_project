@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class CastingDirectorDTO implements Serializable {
     private int cdID;
-    private String userID;
+    private int userID;
 
     public CastingDirectorDTO(){}
 
-    public CastingDirectorDTO(int cdID, String userID) {
+    public CastingDirectorDTO(int cdID, int userID) {
         this.cdID = cdID;
         this.userID = userID;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -42,6 +42,6 @@ public class CastingDirectorDTO implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CastingDirectorDTO that = (CastingDirectorDTO) o;
-        return cdID == that.cdID && Objects.equals(userID, that.userID);
+        return cdID == that.cdID &&  userID == that.userID;
     }
 }
