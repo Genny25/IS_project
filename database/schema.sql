@@ -10,7 +10,7 @@ CREATE TABLE User (
     PhoneNumber CHAR(10) NOT NULL,
     Role ENUM('Performer', 'CastingDirector', 'ProductionManager') NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
-    RegistrationDate DATETIME NOT NULL
+    RegistrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Performer (
