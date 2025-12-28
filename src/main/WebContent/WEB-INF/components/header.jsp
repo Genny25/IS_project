@@ -13,38 +13,43 @@
 
         <nav class="main-nav" id="main-nav">
             <ul>
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="casting.jsp">Casting</a>
-                </li>
-                <li class="nav-item">
-                    <a href="produzioni.jsp">Produzioni</a>
-                </li>
-                <li class="nav-item">
-                    <a href="chi-siamo.jsp">Chi siamo</a>
-                </li>
-            </ul>
-
-            <c:if test="${not empty sessionScope.user}">
                 <c:choose>
-                    <%-- MENU PERFORMER --%>
-                    <c:when test="${sessionScope.user.role == 'Performer'}">
-
-                    </c:when>
-
-                    <%-- MENU CASTING DIRECTOR --%>
-                    <c:when test="${sessionScope.user.role == 'CastingDirector'}">
-
-                    </c:when>
-
-                    <%-- MENU PRODUCTION MANAGER --%>
                     <c:when test="${sessionScope.user.role == 'ProductionManager'}">
-
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/pm/add-production">Nuova Produzione</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/pm/productions">Produzioni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/pm/team">Team</a>
+                        </li>
                     </c:when>
+
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="casting.jsp">Casting</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="produzioni.jsp">Produzioni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="chi-siamo.jsp">Chi siamo</a>
+                        </li>
+
+                        <c:if test="${not empty sessionScope.user}">
+                            <c:choose>
+                                <c:when test="${sessionScope.user.role == 'CastingDirector'}">
+                                    <li class="nav-item"><a href="${pageContext.request.contextPath}/cd/create">Crea Casting</a></li>
+                                </c:when>
+                            </c:choose>
+                        </c:if>
+                    </c:otherwise>
                 </c:choose>
-            </c:if>
+            </ul>
         </nav>
 
         <div class="header-actions">
@@ -68,7 +73,17 @@
                             Ciao, <strong>${sessionScope.user.firstName}</strong>
                         </span>
 
-                        <a href="profilo.jsp" class="action-icon" aria-label="Profilo">
+                        <c:if test="${sessionScope.user.role == 'ProductionManager'}">
+                            <a href="${pageContext.request.contextPath}/pm/productions" class="action-icon" aria-label="Dashboard" title="Dashboard">
+                                <i class="fas fa-tachometer-alt"></i> </a>
+                        </c:if>
+                        <c:if test="${sessionScope.user.role == 'CastingDirector'}">
+                            <a href="${pageContext.request.contextPath}/cd/dashboard" class="action-icon" aria-label="Dashboard" title="Dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </a>
+                        </c:if>
+
+                        <a href="profilo.jsp" class="action-icon" aria-label="Profilo" title="Il tuo profilo">
                             <i class="fas fa-user"></i>
                         </a>
 
@@ -91,3 +106,4 @@
 </header>
 
 <div class="nav-overlay" id="nav-overlay"></div>
+<jsp:include page="/WEB-INF/components/notification.jsp"/>
