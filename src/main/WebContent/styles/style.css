@@ -1,3 +1,6 @@
+/* =========================================
+   1. VARIABLES & CONFIGURATION (:ROOT)
+   ========================================= */
 :root {
     /* --- Brand Colors --- */
     --color-primary-dark: #2D3561;
@@ -26,8 +29,8 @@
 
     /* --- Status Colors --- */
     --color-status-error: #e74c3c;
-    --color-status-error-bg: #f8d7da; /* Light red for alert backgrounds */
-    --color-status-error-text: #721c24; /* Dark red for alert text */
+    --color-status-error-bg: #f8d7da;
+    --color-status-error-text: #721c24;
     --color-status-error-dark: #b71c1c;
 
     --color-status-success: #2ecc71;
@@ -44,7 +47,7 @@
     --color-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.07);
     --color-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
     --color-shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.17);
-    --color-shadow-focus: 0 0 0 2px rgba(245, 167, 66, 0.2); /* Matches accent color */
+    --color-shadow-focus: 0 0 0 2px rgba(245, 167, 66, 0.2);
 
     /* --- Fonts & Typography --- */
     --font-heading: "Montserrat", sans-serif;
@@ -62,10 +65,11 @@
     --z-overlay: 1001;
     --z-mobile-nav: 1002;
     --z-mobile-toggle: 1003;
+    --z-notification: 2000; /* Notification on top */
 }
 
 /* =========================================
-   RESET & BASE STYLES
+   2. RESET & BASE STYLES
    ========================================= */
 *,
 *::before,
@@ -120,7 +124,7 @@ img {
 }
 
 /* =========================================
-   TYPOGRAPHY
+   3. TYPOGRAPHY
    ========================================= */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -137,7 +141,7 @@ h4 { font-size: 1.4rem; }
 .text-center { text-align: center; }
 
 /* =========================================
-   BUTTONS
+   4. BUTTONS
    ========================================= */
 .btn {
     display: inline-block;
@@ -159,7 +163,6 @@ h4 { font-size: 1.4rem; }
     margin: var(--spacing-unit) 0;
 }
 
-/* Primary Button */
 .btn-primary {
     background-color: var(--color-accent-vibrant);
     color: var(--color-primary-dark);
@@ -172,7 +175,6 @@ h4 { font-size: 1.4rem; }
     color: var(--color-primary-dark);
 }
 
-/* Secondary Button */
 .btn-secondary {
     background-color: var(--color-neutral-dark);
     color: var(--color-primary-light);
@@ -185,7 +187,6 @@ h4 { font-size: 1.4rem; }
     border-color: var(--color-neutral-darkest);
 }
 
-/* Danger Button */
 .btn-danger {
     background-color: var(--color-status-error);
     color: var(--color-primary-light);
@@ -198,7 +199,6 @@ h4 { font-size: 1.4rem; }
     border-color: var(--color-status-error-dark);
 }
 
-/* Button Sizes */
 .btn-sm {
     padding: calc(var(--spacing-unit) * 0.375) calc(var(--spacing-unit) * 0.75);
     font-size: 0.9rem;
@@ -217,7 +217,7 @@ h4 { font-size: 1.4rem; }
 }
 
 /* =========================================
-   FORMS
+   5. FORMS
    ========================================= */
 input[type="text"],
 input[type="email"],
@@ -250,7 +250,6 @@ label {
     color: var(--color-text-default);
 }
 
-/* File Input */
 input[type="file"] {
     padding: calc(var(--spacing-unit) * 0.5);
     cursor: pointer;
@@ -271,7 +270,6 @@ input[type="file"]::file-selector-button:hover {
     background-color: var(--color-neutral-base);
 }
 
-/* Password Wrapper */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -280,7 +278,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .password-wrapper input {
-    padding-right: 40px; /* Space for the eye icon */
+    padding-right: 40px;
     width: 100%;
 }
 
@@ -297,7 +295,6 @@ input[type="file"]::file-selector-button:hover {
     color: var(--color-primary-dark);
 }
 
-/* Form Helper & Counter */
 .form-helper-text {
     color: var(--color-text-secondary);
     display: block;
@@ -318,7 +315,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 /* =========================================
-   HEADER & NAVIGATION
+   6. HEADER & NAVIGATION
    ========================================= */
 header {
     background-color: var(--color-primary-dark);
@@ -352,7 +349,6 @@ header .container {
     color: var(--color-accent-vibrant);
 }
 
-/* Desktop Nav */
 .main-nav ul {
     list-style: none;
     display: flex;
@@ -382,7 +378,6 @@ header .container {
     gap: calc(var(--spacing-unit) * 2);
 }
 
-/* Search Bar */
 .search-bar {
     position: relative;
     display: flex;
@@ -448,7 +443,6 @@ header .container {
     display: block;
 }
 
-/* Header User Actions */
 .header-icons {
     display: flex;
     gap: var(--spacing-unit);
@@ -474,10 +468,9 @@ header .container {
 }
 
 .logout-icon:hover {
-    color: #ff6b6b; /* Lighter red for visibility on dark header */
+    color: #ff6b6b;
 }
 
-/* Mobile Nav Elements */
 .mobile-menu-toggle {
     display: none;
 }
@@ -502,7 +495,7 @@ header .container {
 }
 
 /* =========================================
-   FOOTER
+   7. FOOTER
    ========================================= */
 footer {
     background-color: var(--color-primary-dark);
@@ -557,9 +550,8 @@ footer {
 }
 
 /* =========================================
-   PAGE CONTENT & SECTIONS
+   8. PAGE CONTENT
    ========================================= */
-/* Hero Section */
 .hero {
     background: linear-gradient(rgba(59, 74, 107, 0.8), rgba(59, 74, 107, 0.8)),
     url("/images/hero-background.jpg") no-repeat center center/cover;
@@ -584,7 +576,6 @@ footer {
     color: var(--color-neutral-light);
 }
 
-/* Product Showcase */
 .product-showcase {
     padding-top: calc(var(--spacing-unit) * 3);
     padding-bottom: calc(var(--spacing-unit) * 3);
@@ -613,7 +604,6 @@ footer {
     border-radius: 2px;
 }
 
-/* Cards */
 .card {
     padding: calc(var(--spacing-unit) * 2);
     background-color: var(--color-bg-card);
@@ -622,7 +612,7 @@ footer {
 }
 
 /* =========================================
-   REGISTRATION & LOGIN SPECIFICS
+   9. REGISTRATION & LOGIN
    ========================================= */
 .registration-card {
     max-width: 800px;
@@ -710,9 +700,9 @@ footer {
 }
 
 /* =========================================
-   ALERTS & VALIDATION
+   10. VALIDATION & ALERTS
    ========================================= */
-/* Unified Alert Style */
+/* Alert Container */
 .alert-danger {
     background-color: var(--color-status-error-bg);
     color: var(--color-status-error-text);
@@ -720,14 +710,14 @@ footer {
     border-radius: var(--border-radius-sm);
     margin-bottom: var(--spacing-unit);
     border-left: 4px solid var(--color-status-error);
-    display: none; /* Hidden by default */
+    display: none;
 }
 
 .alert-danger:not(:empty) {
     display: block;
 }
 
-/* Validation States */
+/* Validation Icons */
 input.valid,
 select.valid,
 textarea.valid,
@@ -736,7 +726,6 @@ select.valid-field,
 textarea.valid-field {
     border-color: var(--color-status-success) !important;
     padding-right: calc(1.5em + 0.75rem);
-    /* Note: SVG Data URIs cannot easily use CSS variables for colors inside the URL string */
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%232ecc71' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(0.375em + 0.1875rem) center;
@@ -763,8 +752,81 @@ textarea.invalid-field {
     padding-right: 40px;
 }
 
+/* --- TOAST NOTIFICATIONS --- */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    flex-direction: column;
+    z-index: var(--z-notification);
+    pointer-events: none;
+}
+
+.notification {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-default);
+    padding: var(--spacing-unit);
+    padding-right: calc(var(--spacing-unit) * 1.7);
+    margin-bottom: var(--spacing-unit);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--color-shadow-md);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(-20px);
+    position: relative;
+    pointer-events: auto;
+    border: 1px solid var(--color-border-default);
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    border-left: 5px solid var(--color-status-success);
+    color: var(--color-status-success-dark);
+    background-color: #d4edda;
+}
+
+.notification.info {
+    border-left: 5px solid var(--color-status-info);
+    color: var(--color-status-info-hover);
+    background-color: #d1ecf1;
+}
+
+.notification.warning {
+    border-left: 5px solid var(--color-status-warning);
+    color: var(--color-status-warning-dark);
+    background-color: #fff3cd;
+}
+
+.notification.error {
+    border-left: 5px solid var(--color-status-error);
+    color: var(--color-status-error-text);
+    background-color: #f8d7da;
+}
+
+.notification-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
 /* =========================================
-   UTILITIES & ANIMATIONS
+   11. UTILITIES & ANIMATIONS
    ========================================= */
 .mt-1 { margin-top: var(--spacing-unit); }
 .mt-2 { margin-top: calc(var(--spacing-unit) * 2); }
@@ -801,7 +863,7 @@ textarea.invalid-field {
 }
 
 /* =========================================
-   RESPONSIVE LAYOUT
+   12. RESPONSIVE LAYOUT
    ========================================= */
 @media (max-width: 1100px) {
     .logo {
