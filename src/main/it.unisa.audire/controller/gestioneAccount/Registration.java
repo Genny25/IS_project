@@ -149,9 +149,9 @@ public class Registration extends HttpServlet {
                 pmDAO.save(pm);
             }
 
-            //HttpSession session = req.getSession();
-            //session.setAttribute("user", newUser);
-            //NotificationUtil.sendNotification(req, "Registrazione completata! Benvenuto " + firstName, "success");
+            HttpSession session = req.getSession();
+            session.setAttribute("user", newUser);
+            NotificationUtil.sendNotification(req, "Registrazione completata! Benvenuto " + firstName, "success");
             resp.sendRedirect(req.getContextPath() + "/login");
 
         } catch (SQLException e) {

@@ -87,16 +87,14 @@ public class Login extends HttpServlet {
 
         session.setAttribute("user", user);
 
-        // Notifica di benvenuto
-        //NotificationUtil.sendNotification(req, "Bentornato, " + user.getFirstName() + "!", "success");
+        NotificationUtil.sendNotification(req, "Bentornat*, " + user.getFirstName() + "!", "success");
 
         String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
 
         if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
-            session.removeAttribute("redirectAfterLogin"); // Pulisci la sessione
+            session.removeAttribute("redirectAfterLogin");
             resp.sendRedirect(redirectUrl);
         } else {
-            // Altrimenti vai alla Home
             resp.sendRedirect(req.getContextPath() + "/");
         }
     }

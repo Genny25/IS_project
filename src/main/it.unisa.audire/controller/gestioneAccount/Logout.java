@@ -29,7 +29,7 @@ public class Logout extends HttpServlet {
         if (session != null) {
             session.invalidate();
             session = req.getSession(true);
-            //NotificationUtil.sendNotification(req, "Logout effetuato con successo", "info");
+            NotificationUtil.sendNotification(req, "Logout effetuato con successo", "info");
         }
 
         resp.sendRedirect(req.getContextPath() + "/");
