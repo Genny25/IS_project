@@ -247,7 +247,7 @@ public class ProductionDAO implements GenericDAO<ProductionDTO, Integer> {
      */
     private ProductionDTO.Type mapDbToType(String dbValue) {
         try {
-            String normalized = dbValue.toUpperCase().replace(" ", "_");
+            String normalized = dbValue.replace(" ", "_");
             return ProductionDTO.Type.valueOf(normalized);
         } catch (IllegalArgumentException e) {
             return null;
