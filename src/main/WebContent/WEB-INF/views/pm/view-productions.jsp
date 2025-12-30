@@ -60,6 +60,12 @@
                                 </td>
                                 <td class="actions-cell">
                                     <div class="action-buttons">
+
+                                        <a href="${pageContext.request.contextPath}/pm/team?id=${prod.productionID}"
+                                           class="btn-circle btn-info" title="Gestisci Team">
+                                            <i class="fas fa-users"></i>
+                                        </a>
+
                                         <a href="${pageContext.request.contextPath}/pm/edit-production?id=${prod.productionID}"
                                            class="btn-circle btn-edit" title="Modifica">
                                             <i class="fas fa-pen"></i>
