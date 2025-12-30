@@ -19,10 +19,16 @@
                             <a href="${pageContext.request.contextPath}/pm/add-production">Nuova Produzione</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/pm/productions">Produzioni</a>
+                            <a href="${pageContext.request.contextPath}/pm/productions">Le Mie Produzioni</a>
+                        </li>
+                    </c:when>
+
+                    <c:when test="${sessionScope.user.role == 'CastingDirector'}">
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/cd/">Nuovo Casting</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/pm/team">Team</a>
+                            <a href="${pageContext.request.contextPath}/cd/">I Miei Casting</a>
                         </li>
                     </c:when>
 
@@ -39,14 +45,6 @@
                         <li class="nav-item">
                             <a href="chi-siamo.jsp">Chi siamo</a>
                         </li>
-
-                        <c:if test="${not empty sessionScope.user}">
-                            <c:choose>
-                                <c:when test="${sessionScope.user.role == 'CastingDirector'}">
-                                    <li class="nav-item"><a href="${pageContext.request.contextPath}/cd/create">Crea Casting</a></li>
-                                </c:when>
-                            </c:choose>
-                        </c:if>
                     </c:otherwise>
                 </c:choose>
             </ul>
