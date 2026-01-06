@@ -99,7 +99,7 @@
                     <select id="role" name="role" required>
                         <option value="">-- Seleziona il tuo ruolo --</option>
                         <option value="Performer" ${param.role == 'Performer' ? 'selected' : ''}>
-                            Performer (Attore/Cantante/Artista)
+                            Performer
                         </option>
                         <option value="CastingDirector" ${param.role == 'CastingDirector' ? 'selected' : ''}>
                             Casting Director
