@@ -187,13 +187,10 @@ public class Registration extends HttpServlet {
         String photoName = saveFile(req.getPart("profilePhoto"), uploadPath);
         performer.setProfilePhoto(photoName);
 
-        // CV (Opzionale)
         Part cvPart = req.getPart("cvFile");
         if (cvPart != null && cvPart.getSize() > 0) {
-            // Qui dovresti implementare la logica per salvare il CV.
-            // Se il tuo DAO vuole i byte[] (BLOB):
-            // performer.setCvData(cvPart.getInputStream().readAllBytes());
-            // performer.setCvMimeType(cvPart.getContentType());
+            performer.setCvData(cvPart.getInputStream().readAllBytes());
+            performer.setCvMimeType(cvPart.getContentType());
         }
 
         performerDAO.save(performer);
