@@ -1,15 +1,15 @@
-.productions-card {
-    background-color: var(--color-bg-card);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--color-shadow-md);
-    overflow: hidden;
-    border: 1px solid var(--color-border-default);
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border-default);
 }
 
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+.page-title {
+    margin: 0;
+    color: var(--color-primary-dark);
 }
 
 .form-title {
@@ -20,11 +20,34 @@
     color: var(--color-text-secondary);
 }
 
-.alert-success {
-    background-color: var(--color-status-success);
-    color: white;
-    padding: 1rem;
-    border-radius: 4px;
+.productions-card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--color-shadow-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border-default);
+}
+
+.team-card {
+    border-left: 5px solid var(--color-accent-vibrant);
+    margin-bottom: var(--spacing-unit);
+}
+
+.team-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--color-primary-dark);
+}
+
+.team-card p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .production-table {
@@ -79,6 +102,35 @@
     margin-right: 5px;
 }
 
+.avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-primary-dark);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.table-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.table-link:hover {
+    color: var(--color-accent-vibrant);
+}
 
 .badge-type {
     display: inline-block;
@@ -90,10 +142,38 @@
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 50rem;
-
     background-color: var(--color-neutral-light);
     color: var(--color-neutral-darkest);
     border: 1px solid var(--color-neutral-base);
+}
+
+.team-form {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.team-select-group {
+    flex-grow: 1;
+}
+
+.team-select-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.team-select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-sm);
+    background-color: white;
+}
+
+.form-remove {
+    margin: 0;
 }
 
 .actions-cell {
@@ -120,6 +200,7 @@
     font-size: 0.9rem;
     background-color: var(--color-bg-body);
     box-shadow: var(--color-shadow-light);
+    cursor: pointer;
 }
 
 .btn-circle:hover {
@@ -131,7 +212,6 @@
     color: var(--color-accent-vibrant);
     border: 1px solid var(--color-accent-secondary);
 }
-
 .btn-edit:hover {
     background-color: var(--color-accent-vibrant);
     color: var(--color-primary-light);
@@ -141,7 +221,6 @@
     color: var(--color-status-error);
     border: 1px solid var(--color-status-error);
 }
-
 .btn-delete:hover {
     background-color: var(--color-status-error);
     color: var(--color-primary-light);
@@ -152,7 +231,6 @@
     border: 1px solid var(--color-status-info);
     background-color: var(--color-neutral-lightest);
 }
-
 .btn-info:hover {
     background-color: var(--color-status-info);
     color: var(--color-primary-light);
@@ -177,16 +255,12 @@
     margin-bottom: 1.5rem;
 }
 
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border-default);
-}
+.text-danger { color: var(--color-status-error); }
+.text-secondary { color: var(--color-text-secondary); }
 
-.page-title {
-    margin: 0;
-    color: var(--color-primary-dark);
+.alert-success {
+    background-color: var(--color-status-success);
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
 }
