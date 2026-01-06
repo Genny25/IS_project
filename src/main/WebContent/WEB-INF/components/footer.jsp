@@ -6,7 +6,7 @@
             <!-- Logo Column -->
             <div class="footer-column">
                 <div class="footer-logo">
-                    <img src="images/logo1.png" alt="Audire Logo" style="max-width: 150px;">
+                    <img src="images/logo.png" alt="Audire Logo" style="max-width: 150px;">
                 </div>
             </div>
 
