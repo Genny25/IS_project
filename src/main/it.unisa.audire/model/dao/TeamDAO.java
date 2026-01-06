@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.dto.TeamDTO;
+import model.dto.UserDTO;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -163,12 +164,80 @@ public class TeamDAO {
         }
     }
 
-    // --- Helper Methods ---
+    /**
+     * Retrieves the list of Casting Directors who are currently members of the team for a specific production.
+     * <p>
+     * This method executes a JOIN operation across the {@code User}, {@code Casting_Director},
+     * and {@code Team} tables to fetch the user details (such as name and email)
+     * for every Casting Director associated with the given production ID.
+     * </p>
+     *
+     * @param productionID the unique identifier of the production to retrieve team members for.
+     * @return a {@code List} of {@link UserDTO} objects representing the current team members. Returns an empty list if no members are found.
+     * @throws SQLException if a database access error occurs during the query execution.
+     */
+    public List<UserDTO> getTeamMembers(int productionID) throws SQLException {
+        String sql = "SELECT u.* " +
+                "FROM User u " +
+                "JOIN Casting_Director cd ON u.UserID = cd.UserID " +
+                "JOIN Team t ON cd.CdID = t.CdID " +
+                "WHERE t.ProductionID = ?";
 
+        return executeUserQuery(sql, productionID);
+    }
+
+    /**
+     * Retrieves the list of available Casting Directors who are not currently assigned to the specified production.
+     * <p>
+     * This method fetches all users who hold the Casting Director role but are
+     * <b>not</b> present in the {@code Team} table for the provided production ID.
+     * This is typically used to populate a selection list for adding new members to a team,
+     * ensuring that a Casting Director is not added twice to the same production.
+     * </p>
+     *
+     * @param productionID the unique identifier of the production to check against.
+     * @return a {@code List} of {@link UserDTO} objects representing Casting Directors eligible to be added to the team.
+     * @throws SQLException if a database access error occurs during the query execution.
+     */
+    public List<UserDTO> getAvailableCastingDirectors(int productionID) throws SQLException {
+        String sql = "SELECT u.* " +
+                "FROM User u " +
+                "JOIN Casting_Director cd ON u.UserID = cd.UserID " +
+                "WHERE cd.CdID NOT IN (SELECT CdID FROM Team WHERE ProductionID = ?)";
+
+        return executeUserQuery(sql, productionID);
+    }
+
+    // --- Helper Methods ---
     private TeamDTO extractTeamFromResultSet(ResultSet rs) throws SQLException {
         TeamDTO team = new TeamDTO();
         team.setProductionID(rs.getInt("ProductionID"));
         team.setCdID(rs.getInt("CdID"));
         return team;
+    }
+
+    private List<UserDTO> executeUserQuery(String sql, int productionID) throws SQLException {
+        List<UserDTO> users = new ArrayList<>();
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, productionID);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    users.add(extractUser(rs));
+                }
+            }
+        }
+        return users;
+    }
+
+    private UserDTO extractUser(ResultSet rs) throws SQLException {
+        UserDTO user = new UserDTO();
+        user.setUserID(rs.getInt("UserID"));
+        user.setFirstName(rs.getString("FirstName"));
+        user.setLastName(rs.getString("LastName"));
+        user.setEmail(rs.getString("Email"));
+        return user;
     }
 }
