@@ -27,14 +27,7 @@ public class AccessControlFilter extends HttpFilter {
         boolean isLoggedIn = (user != null);
 
 
-        if (path.contains("/common/")) {
-            if (!isLoggedIn) {
-                redirectToLogin(request, response);
-                return;
-            }
-        }
-
-        else if (path.contains("/cd/")) {
+        if (path.contains("/cd/")) {
             if (!isLoggedIn) {
                 redirectToLogin(request, response);
                 return;
@@ -51,6 +44,17 @@ public class AccessControlFilter extends HttpFilter {
                 return;
             }
             if (user.getRole() != UserDTO.Role.ProductionManager) {
+                handleUnauthorized(response);
+                return;
+            }
+        }
+
+        else if (path.contains("/performer/")) {
+            if (!isLoggedIn) {
+                redirectToLogin(request, response);
+                return;
+            }
+            if (user.getRole() != UserDTO.Role.Performer) {
                 handleUnauthorized(response);
                 return;
             }
