@@ -21,7 +21,7 @@ public class UpdateProduction extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 1. Auth Check
+
         UserDTO user = (UserDTO) req.getSession().getAttribute("user");
         if (user == null || user.getRole() != UserDTO.Role.ProductionManager) {
             resp.sendRedirect(req.getContextPath() + "/login");
@@ -43,7 +43,6 @@ public class UpdateProduction extends HttpServlet {
             ProductionDTO production = prodDAO.getByID(prodID);
             ProductionManagerDTO currentPm = pmDAO.getByUserID(user.getUserID());
 
-            // 2. Security Check: La produzione esiste? Appartiene a questo PM?
             if (production == null) {
                 NotificationUtil.sendNotification(req, "Produzione non trovata.", "error");
                 resp.sendRedirect(req.getContextPath() + "/pm/productions");
@@ -56,7 +55,6 @@ public class UpdateProduction extends HttpServlet {
                 return;
             }
 
-            // 3. Tutto ok, invia al form
             req.setAttribute("production", production);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/pm/edit-production.jsp");
             dispatcher.forward(req, resp);
@@ -79,13 +77,11 @@ public class UpdateProduction extends HttpServlet {
         String title = req.getParameter("title");
         String typeStr = req.getParameter("type");
 
-        // Validazione
         List<String> errors = new ArrayList<>();
         if (title == null || title.trim().isEmpty()) errors.add("Il titolo è obbligatorio.");
 
         if (!errors.isEmpty()) {
             req.setAttribute("errors", errors);
-            // Ricarica i dati per non perdere il form (potresti dover ricaricare l'oggetto dal DB se vuoi essere sicuro)
             doGet(req, resp);
             return;
         }
@@ -97,7 +93,6 @@ public class UpdateProduction extends HttpServlet {
         try {
             int prodID = Integer.parseInt(idStr);
 
-            // Recupera originale per controlli di sicurezza e mantenere dati non modificabili (es. data creazione)
             ProductionDTO production = prodDAO.getByID(prodID);
             ProductionManagerDTO currentPm = pmDAO.getByUserID(user.getUserID());
 
@@ -106,24 +101,21 @@ public class UpdateProduction extends HttpServlet {
                 return;
             }
 
-            // Aggiorna i campi
             production.setTitle(title.trim());
             try {
                 production.setType(ProductionDTO.Type.valueOf(typeStr));
             } catch (IllegalArgumentException e) {
                 errors.add("Tipologia non valida.");
                 req.setAttribute("errors", errors);
-                req.setAttribute("production", production); // Rimanda indietro l'oggetto
+                req.setAttribute("production", production);
                 req.getRequestDispatcher("/WEB-INF/views/pm/edit-production.jsp").forward(req, resp);
                 return;
             }
 
-            // Salva (Il DAO gestisce l'UPDATE perché ID > 0)
             prodDAO.save(production);
 
             NotificationUtil.sendNotification(req, "Produzione aggiornata con successo!", "success");
 
-            // Redirect pulito senza parametri
             resp.sendRedirect(req.getContextPath() + "/pm/productions");
 
         } catch (SQLException | NumberFormatException e) {
