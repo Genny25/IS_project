@@ -25,10 +25,16 @@
 
                     <c:when test="${sessionScope.user.role == 'CastingDirector'}">
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/cd/">Nuovo Casting</a>
+                            <a href="${pageContext.request.contextPath}/cd/create-casting">Nuovo Casting</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/cd/">I Miei Casting</a>
+                            <a href="${pageContext.request.contextPath}/cd/view-castings">I Miei Casting</a>
+                        </li>
+                    </c:when>
+
+                    <c:when test="${sessionScope.user.role == 'Performer'}">
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/performer/applications">Le Mie Candidature</a>
                         </li>
                     </c:when>
 
