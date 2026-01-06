@@ -151,7 +151,7 @@ public class Registration extends HttpServlet {
 
             HttpSession session = req.getSession();
             session.setAttribute("user", newUser);
-            NotificationUtil.sendNotification(req, "Registrazione completata! Benvenuto " + firstName, "success");
+            NotificationUtil.sendNotification(req, "Registrazione completata! Benvenut* " + firstName, "success");
             resp.sendRedirect(req.getContextPath() + "/login");
 
         } catch (SQLException e) {
